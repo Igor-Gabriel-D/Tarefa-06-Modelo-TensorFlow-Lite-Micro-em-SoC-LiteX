@@ -10,9 +10,9 @@ O projeto é baseado em um SoC gerado com o LiteX, que inclui CPU, memória e pe
 ```mermaid
 graph TD
     A[VexRiscv CPU] --> B[SRAM/SDRAM]
-    B -->|Armazena| C[Firmware + Modelo TFLM]
-    A -->|Bus| D[GPIO Controller]
-    D -->|Sinal Digital| E[Barra de 8 LEDs]
+    B --> C[Firmware + Modelo TFLM]
+    A -->D[GPIO Controller]
+    D -->|Sinal Digital| E[LEDs]
     
     subgraph "FPGA ColorLight i9"
     A
@@ -20,8 +20,24 @@ graph TD
     D
     end
     
-    subgraph "Interface Externa"
+    subgraph "Placa Externa"
     E
     end
 
 ```
+### Hardware Utilizado
+
+Placa FPGA: ColorLight i9 
+Interface: Placa de extensão com uma barra de 8 LEDs ligada ao header J1
+
+### Pinagem
+| Bit (Firmware) | Pino FPGA | Pino CN2 | 
+| -------------- | --------- | -------- | 
+| LED 0 (LSB)    | P17       | 4        | 
+| LED 1          | P18       | 6        | 
+| LED 2          | N18       | 8        | 
+| LED 3          | L20       | 10       | 
+| LED 4          | L18       | 12       | 
+| LED 5          | G20       | 14       | 
+| LED 6          | M18       | 11       | 
+| LED 7 (MSB)    | N17       | 9        | 
