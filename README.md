@@ -4,7 +4,7 @@ Nesta tarefa eu implementei um sistema capaz de rodar inferência TinyML usando 
 
 ## Visão Geral do Sistema
 
-O projeto é baseado em um SoC gerado com o LiteX, que inclui CPU, memória e periféricos de I/O. No firmware, escrito em C++, eu carrego o runtime do TFLM e executo o modelo repetidamente dentro do loop principal.
+O projeto é baseado em um SoC gerado com o LiteX, que inclui CPU, memória e periféricos de I/O. No firmware, escrito em C++, o runtime do TFLM é carregado e executa o modelo repetidamente dentro do loop principal.
 
 ### Diagrama de Blocos
 ```mermaid
