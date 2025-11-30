@@ -81,3 +81,13 @@ make
 ```
 
 A biblioteca libtflm.a já está no repositório
+
+### 3. Carregar o Gateware e o Firmware
+
+```bash
+cd ..
+
+openFPGALoader -b colorlight-i5 build/colorlight_i5/gateware/colorlight_i5.bit
+
+litex_term /dev/ttyACM0 --speed 115200 --kernel firmware/build/main.bin
+```
