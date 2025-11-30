@@ -12,11 +12,12 @@ graph TD
     A[VexRiscv CPU] --> B[SRAM/SDRAM]
     B --> C[Firmware + Modelo TFLM]
     A -->D[GPIO Controller]
-    D -->|Sinal Digital| E[LEDs]
+    D --> E[LEDs]
     
     subgraph "FPGA ColorLight i9"
     A
     B
+    C
     D
     end
     
@@ -41,3 +42,42 @@ Interface: Placa de extensão com uma barra de 8 LEDs ligada ao header J1
 | LED 5          | G20       | 14       | 
 | LED 6          | M18       | 11       | 
 | LED 7 (MSB)    | N17       | 9        | 
+
+### Estrutura do Projeto
+```text
+tflm_litex/
+├── firmware/               # Código-fonte do firmware
+│   ├── tflm/               # Biblioteca TensorFlow Lite Micro 
+│   ├── linker.ld           # Script de linker do VexRiscv
+│   ├── main.cc             # Loop de inferência + controle dos LEDs
+│   ├── models/             # Modelo quantizado convertido para array C
+│   ├──     ├── hello_world_int8_model_data.cc
+│   ├──     └── hello_world_int8_model_data.h
+│   ├── hello_world_tflm_litex.ipynb   # Notebook de treino e conversão do modelo
+│   └── Makefile            # Script de compilação do firmware
+├── litex/                  # Geração do gateware (SoC LiteX)
+│   └── colorlight_i5.py    # Script de configuração do SoC/VexRiscv e periféricos
+README.md                   # Documentação do projeto
+
+```
+
+## Compilação e execução
+
+### 1. Gerar o Bitstream
+Entrar no ambiente do OSS-CAD-Suite:
+```bash
+source ~/caminho/para/o/oss-cad-suite/environment
+```
+Depois gerar o hardware:
+```bash
+cd litex
+python3 colorlight_i5.py --board i9 --revision 7.2 --build --cpu-type=vexriscv --ecppack-compress
+```
+
+### 2. Compilar o Firmware
+```bash
+cd ../firmware
+make
+```
+
+A biblioteca libtflm.a já está no repositório
